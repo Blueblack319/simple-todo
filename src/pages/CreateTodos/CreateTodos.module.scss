@@ -1,0 +1,21 @@
+.CreateTodos {
+  width: 100%;
+  height: 100vh;
+  header {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+  }
+}
+.Form {
+  width: 70%;
+  height: 40%;
+  margin: auto;
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+}
