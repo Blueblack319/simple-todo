@@ -2,6 +2,7 @@ import React from "react";
 import Button from "../../../components/Button/Button";
 import Input from "../../../components/Input/Input";
 import Title from "../../../components/Title/Title";
+import TodoItem from "../../../components/TodoList/TodoItem/TodoItem";
 
 import classes from "./InputTodoForm.module.scss";
 
@@ -18,7 +19,7 @@ const InputTodoForm = (props) => {
           <Input type="text" placeholder="Write your Todo" />
           <Button>✔</Button>
         </form>
-
+        <TodoItem />
         <Button>Save</Button>
       </form>
     </div>
