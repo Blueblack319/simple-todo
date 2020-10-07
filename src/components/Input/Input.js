@@ -10,6 +10,7 @@ const Input = (props) => {
       className={classes.Input}
       onChange={props.valueUpdated}
       value={props.value}
+      name={props.name}
     />
   );
 };

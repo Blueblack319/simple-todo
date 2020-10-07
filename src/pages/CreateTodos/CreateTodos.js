@@ -20,8 +20,8 @@ const CreateTodos = (props) => {
       </header>
       <div className={classes.Form}>
         <Switch>
-          <Route path="/" exact component={CreateTodosForm} />
           <Route path="/input-todo" component={InputTodoForm} />
+          <Route path="/" component={CreateTodosForm} />
         </Switch>
       </div>
     </div>
