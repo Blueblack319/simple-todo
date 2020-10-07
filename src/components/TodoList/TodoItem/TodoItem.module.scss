@@ -1,9 +1,8 @@
 .TodoItem {
-  width: 100%;
-  height: 40px;
-  line-height: 40px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 25px;
   border-bottom: 1px solid #ccc;
 }
 

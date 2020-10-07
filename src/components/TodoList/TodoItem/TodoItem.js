@@ -3,10 +3,10 @@ import Button from "../../Button/Button";
 
 import classes from "./TodoItem.module.scss";
 
-const TodoItem = () => {
+const TodoItem = (props) => {
   return (
     <div className={classes.TodoItem}>
-      <span>Clean up my bedroom</span>
+      <span>{props.todo}</span>
       <div className={classes.Controls}>
         <input type="checkbox" />
         <Button>
