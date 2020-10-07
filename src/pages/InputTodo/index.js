@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Button from "../../components/Button/Button";
-import Input from "../../components/Input/Input";
-import Title from "../../components/Title/Title";
-import TodoList from "./TodoList/TodoList";
+import Button from "../../components/Button";
+import Input from "../../components/Input";
+import Title from "../../components/Title";
+import TodoList from "./TodoList";
 import useConstructor from "../../hooks/useConstructor/useConstructor";
 
 import classes from "./InputTodo.module.scss";
