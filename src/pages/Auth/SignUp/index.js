@@ -24,7 +24,7 @@ const reducer = (state, action) => {
     case "error":
       return { ...state, error: action.value };
     default:
-      return { ...state };
+      return state;
   }
 };
 
@@ -82,7 +82,7 @@ const SignUp = (props) => {
         value={passwordTwo}
         placeholder="Confirm Password"
       />
-      <Button disable={disabled}>Sign Up</Button>
+      <Button disabled={disabled}>Sign Up</Button>
       {error && <p style={{ color: "#e74c3c" }}>{error.message}</p>}
     </form>
   );
