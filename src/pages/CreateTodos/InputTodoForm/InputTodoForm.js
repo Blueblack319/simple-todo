@@ -16,13 +16,12 @@ const InputTodoForm = (props) => {
     setTodo(event.target.value);
   };
 
-  let handleTodoDeleted = (index) => {
+  const handleTodoDeleted = (index) => {
     setTodos(todos.filter((todoItem) => todoItem.index !== index));
   };
 
   useConstructor(() => {
     todoUpdated = todoUpdated.bind(this);
-    handleTodoDeleted = handleTodoDeleted.bind(this);
   });
 
   const handleFormSubmitted = (event) => {

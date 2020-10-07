@@ -7,6 +7,8 @@ import InputTodoForm from "./InputTodoForm/InputTodoForm";
 
 import classes from "./CreateTodos.module.scss";
 
+import { Switch, Route } from "react-router-dom";
+
 const CreateTodos = (props) => {
   return (
     <div className={classes.CreateTodos}>
@@ -17,8 +19,10 @@ const CreateTodos = (props) => {
         <Button>Auth</Button>
       </header>
       <div className={classes.Form}>
-        {/* <CreateTodosForm /> */}
-        <InputTodoForm />
+        <Switch>
+          <Route path="/" exact component={CreateTodosForm} />
+          <Route path="/input-todo" component={InputTodoForm} />
+        </Switch>
       </div>
     </div>
   );
