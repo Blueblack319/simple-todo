@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Button from "../../../components/Button/Button";
-import Input from "../../../components/Input/Input";
-import Title from "../../../components/Title/Title";
+import Button from "../../components/Button/Button";
+import Input from "../../components/Input/Input";
+import Title from "../../components/Title/Title";
 import TodoList from "./TodoList/TodoList";
-import useConstructor from "../../../hooks/useConstructor/useConstructor";
+import useConstructor from "../../hooks/useConstructor/useConstructor";
 
-import classes from "./InputTodoForm.module.scss";
+import classes from "./InputTodo.module.scss";
 
 const InputTodoForm = (props) => {
   const [userName, setUserName] = useState("");
