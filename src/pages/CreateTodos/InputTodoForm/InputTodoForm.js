@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "../../../components/Button/Button";
 import Input from "../../../components/Input/Input";
 import Title from "../../../components/Title/Title";
-import TodoList from "../../../components/TodoList/TodoList";
+import TodoList from "./TodoList/TodoList";
 import useConstructor from "../../../hooks/useConstructor/useConstructor";
 
 import classes from "./InputTodoForm.module.scss";
@@ -16,8 +16,13 @@ const InputTodoForm = (props) => {
     setTodo(event.target.value);
   };
 
+  let handleTodoDeleted = (index) => {
+    setTodos(todos.filter((todoItem) => todoItem.index !== index));
+  };
+
   useConstructor(() => {
     todoUpdated = todoUpdated.bind(this);
+    handleTodoDeleted = handleTodoDeleted.bind(this);
   });
 
   const handleFormSubmitted = (event) => {
@@ -50,7 +55,7 @@ const InputTodoForm = (props) => {
           <span style={{ color: "#00b894" }}>✔</span>
         </Button>
       </form>
-      <TodoList todos={todos} />
+      <TodoList todos={todos} deleted={handleTodoDeleted} />
       <Button>Save</Button>
     </div>
   );
