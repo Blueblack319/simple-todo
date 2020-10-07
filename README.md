@@ -15,14 +15,14 @@
   - [ ] SignUp
   - [ ] View
 - [ ] Implement the minimal state your app needs
-  - [ ] Create.js
-  - [ ] InputTodo.js
+  - [x] CreateTodosForm.js
+  - [x] InputTodoForm.js
   - [ ] LogIn
   - [ ] SignUp
   - [ ] View
 - [ ] Add functions to mutate state and thus make the UI interactive
-  - [ ] Create.js
-  - [ ] InputTodo.js
+  - [x] CreateTodosForm.js
+  - [x] InputTodoForm.js
   - [ ] LogIn
   - [ ] SignUp
   - [ ] View

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../../../components/Button/Button";
 import Input from "../../../components/Input/Input";
 import Title from "../../../components/Title/Title";
@@ -8,9 +8,16 @@ import useConstructor from "../../../hooks/useConstructor/useConstructor";
 import classes from "./InputTodoForm.module.scss";
 
 const InputTodoForm = (props) => {
+  const [userName, setUserName] = useState("");
+  const [date, setDate] = useState(null);
   const [todo, setTodo] = useState("");
   const [todos, setTodos] = useState([]);
   const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    setUserName(localStorage.getItem("userName"));
+    setDate(localStorage.getItem("date"));
+  }, []);
 
   let todoUpdated = (event) => {
     setTodo(event.target.value);
@@ -39,9 +46,9 @@ const InputTodoForm = (props) => {
   return (
     <div className={classes.InputTodoForm}>
       <Title>
-        Hi, Hoon! <br />
+        Hi, {userName}! <br />
         You have {todos.length} Todos <br />
-        in 2020/10/6.
+        in {date}.
       </Title>
       <form className={classes.InputContainer} onSubmit={handleFormSubmitted}>
         <Input
