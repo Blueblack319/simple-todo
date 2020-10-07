@@ -36,7 +36,7 @@ const InputTodoForm = (props) => {
     <div className={classes.InputTodoForm}>
       <Title>
         Hi, Hoon! <br />
-        You have 0 Todos <br />
+        You have {todos.length} Todos <br />
         in 2020/10/6.
       </Title>
       <form className={classes.InputContainer} onSubmit={handleFormSubmitted}>
@@ -46,7 +46,9 @@ const InputTodoForm = (props) => {
           valueUpdated={todoUpdated}
           value={todo}
         />
-        <Button>✔</Button>
+        <Button>
+          <span style={{ color: "#00b894" }}>✔</span>
+        </Button>
       </form>
       <TodoList todos={todos} />
       <Button>Save</Button>
