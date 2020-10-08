@@ -1,0 +1,24 @@
+.SideDrawer {
+  z-index: 200;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 55%;
+  height: 100vh;
+  padding-top: 20px;
+  padding-left: 20px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(-100vh);
+}
+
+.Links {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+.Visible {
+  transform: translateX(0);
+}

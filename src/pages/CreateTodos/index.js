@@ -8,12 +8,21 @@ import classes from "./CreateTodos.module.scss";
 const CreateTodosForm = (props) => {
   const [userName, setUserName] = useState("");
   const [date, setDate] = useState("");
+  // const [idToken, setIdToken] = useState(null);
 
   const handleFormSubmitted = (event) => {
     event.preventDefault();
-    localStorage.setItem("userName", userName);
-    localStorage.setItem("date", date);
-    props.history.push("/input-todo");
+    const storedIdToken = localStorage.getItem("idToken");
+    // await setIdToken(storedIdToken);
+    // console.log(storedIdToken);
+    // console.log(idToken); Q.왜 idToken state에 저장이 되기 전에 실행 될까? => async 비동기로 처리할 수 있나?
+    if (storedIdToken) {
+      localStorage.setItem("userName", userName);
+      localStorage.setItem("date", date);
+      props.history.push("/input-todo");
+    } else {
+      props.history.push("/login");
+    }
   };
 
   const handleValueUpdated = (event) => {
@@ -42,7 +51,7 @@ const CreateTodosForm = (props) => {
           name="date"
           value={date}
         />
-        <Button>Go to Input Todos</Button>
+        <Button>Go to Input Todo</Button>
       </form>
     </div>
   );

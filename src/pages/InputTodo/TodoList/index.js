@@ -1,6 +1,8 @@
 import React from "react";
 import TodoItem from "./TodoItem";
 
+import classes from "./TodoList.module.scss";
+
 const TodoList = (props) => {
   const todos = props.todos.map((todoItem) => {
     return (
@@ -12,7 +14,7 @@ const TodoList = (props) => {
       />
     );
   });
-  return todos;
+  return <div className={classes.TodoList}>{todos}</div>;
 };
 
 export default TodoList;

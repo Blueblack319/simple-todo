@@ -6,9 +6,10 @@
     justify-content: space-between;
     align-items: center;
     padding: 12px;
-    background-color: #fab1a0;
+    background-color: #74b9ff;
   }
 }
+
 .Form {
   width: 80%;
   height: fit-content;
@@ -21,4 +22,5 @@
   right: 0;
   border: 1px solid #ccc;
   border-radius: 20px;
+  z-index: 1;
 }

@@ -1,4 +1,5 @@
 .Button {
+  width: fit-content;
   font-size: 30px;
   font-weight: 500;
   background-color: white;
@@ -6,4 +7,11 @@
   border-radius: 10%;
   outline: none;
   padding: auto 0;
+  color: #74b9ff;
+}
+
+.Button:active,
+.Button:focus,
+.Button:hover {
+  color: #0984e3;
 }

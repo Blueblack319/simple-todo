@@ -6,6 +6,8 @@ import Title from "../../../components/Title";
 
 import classes from "./Login.module.scss";
 
+import { Link } from "react-router-dom";
+
 const initialState = {
   email: "",
   password: "",
@@ -37,7 +39,7 @@ const Login = (props) => {
     event.preventDefault();
     axios({
       method: "POST",
-      url: `${process.env.FIREBASE_END_POINT}accounts:signUp?key=${process.env.REACT_APP_API_KEY}`,
+      url: `${process.env.REACT_APP_FIREBASE_END_POINT}/accounts:signInWithPassword?key=${process.env.REACT_APP_API_KEY}`,
       headers: { "Content-Type": "application/json" },
       data: {
         email: email,
@@ -55,25 +57,33 @@ const Login = (props) => {
   const disabled = password === "" || email === "";
 
   return (
-    <form className={classes.Login} onSubmit={handleFormSubmitted}>
-      <Title>Log In to Your Account!</Title>
-      <Input
-        name="email"
-        type="email"
-        placeholder="Email Address"
-        valueUpdated={handleValueUpdated}
-        value={state.email}
-      />
-      <Input
-        name="password"
-        type="password"
-        placeholder="Password"
-        valueUpdated={handleValueUpdated}
-        value={state.password}
-      />
-      <Button disabled={disabled}>Log In</Button>
-      {error && <p style={{ color: "#e74c3c" }}>{error.message}</p>}
-    </form>
+    <div className={classes.Login}>
+      <form className={classes.Form} onSubmit={handleFormSubmitted}>
+        <Title>Log In to Your Account!</Title>
+        <Input
+          name="email"
+          type="email"
+          placeholder="Email Address"
+          valueUpdated={handleValueUpdated}
+          value={state.email}
+        />
+        <Input
+          name="password"
+          type="password"
+          placeholder="Password"
+          valueUpdated={handleValueUpdated}
+          value={state.password}
+        />
+        <Button disabled={disabled}>Log In</Button>
+        {error && <p style={{ color: "#e74c3c" }}>{error.message}</p>}
+      </form>
+      <p>
+        Need an Account?{" "}
+        <Link to="/signup">
+          <Button>Sign up</Button>
+        </Link>
+      </p>
+    </div>
   );
 };
 

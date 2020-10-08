@@ -40,7 +40,7 @@ const SignUp = (props) => {
     event.preventDefault();
     axios({
       method: "POST",
-      url: `${process.env.REACT_APP_FIREBASE_END_POINT}accounts:signUp?key=${process.env.REACT_APP_API_KEY}`,
+      url: `${process.env.REACT_APP_FIREBASE_END_POINT}/accounts:signUp?key=${process.env.REACT_APP_API_KEY}`,
       headers: { "Content-Type": "application/json" },
       data: {
         email: email,
