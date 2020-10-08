@@ -2,6 +2,7 @@ import React, { useReducer } from "react";
 import Button from "../../../components/Button";
 import Input from "../../../components/Input";
 import Title from "../../../components/Title";
+import axios from "axios";
 
 import classes from "./SignUp.module.scss";
 
@@ -35,7 +36,24 @@ const SignUp = (props) => {
     dispatch({ type: event.target.name, value: event.target.value });
   };
 
-  const handleFormSubmitted = (event) => {};
+  const handleFormSubmitted = (event) => {
+    event.preventDefault();
+    axios({
+      method: "POST",
+      url: `${process.env.REACT_APP_FIREBASE_END_POINT}accounts:signUp?key=${process.env.REACT_APP_API_KEY}`,
+      headers: { "Content-Type": "application/json" },
+      data: {
+        email: email,
+        password: passwordOne,
+      },
+    })
+      .then((res) => {
+        localStorage.setItem("idToken", res.data.idToken);
+        localStorage.setItem("userId", res.data.localId);
+      })
+      .then(props.history.push("/"))
+      .catch((err) => dispatch({ type: "error", value: err }));
+  };
 
   const disabled =
     passwordOne !== passwordTwo ||
