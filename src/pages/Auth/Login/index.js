@@ -1,8 +1,7 @@
-import React, { useContext, useReducer } from "react";
+import React, { useReducer } from "react";
 import Button from "../../../components/Button";
 import Input from "../../../components/Input";
 import Title from "../../../components/Title";
-import FirebaseContext from "../../../contexts/FirebaseContext/FirebaseContext";
 
 import classes from "./Login.module.scss";
 
@@ -26,7 +25,6 @@ const reducer = (state, action) => {
 };
 
 const Login = (props) => {
-  const firebase = useContext(FirebaseContext);
   const [state, dispatch] = useReducer(reducer, initialState);
   const { email, password, error } = state;
 
@@ -34,17 +32,7 @@ const Login = (props) => {
     dispatch({ type: event.target.name, value: event.target.value });
   };
 
-  const handleFormSubmitted = (event) => {
-    event.preventDefault();
-    firebase
-      .doSignInWithEmailAndPassword(email, password)
-      .then((res) => {
-        dispatch({ type: "email", value: "" });
-        dispatch({ type: "password", value: "" });
-        props.history.push("/");
-      })
-      .catch((err) => dispatch({ type: "error", value: err }));
-  };
+  const handleFormSubmitted = (event) => {};
 
   const disabled = password === "" || email === "";
 

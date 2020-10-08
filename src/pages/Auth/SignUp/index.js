@@ -1,8 +1,7 @@
-import React, { useContext, useReducer } from "react";
+import React, { useReducer } from "react";
 import Button from "../../../components/Button";
 import Input from "../../../components/Input";
 import Title from "../../../components/Title";
-import FirebaseContext from "../../../contexts/FirebaseContext/FirebaseContext";
 
 import classes from "./SignUp.module.scss";
 
@@ -29,7 +28,6 @@ const reducer = (state, action) => {
 };
 
 const SignUp = (props) => {
-  const firebase = useContext(FirebaseContext);
   const [state, dispatch] = useReducer(reducer, initialState);
   const { email, passwordOne, passwordTwo, error } = state;
 
@@ -37,20 +35,7 @@ const SignUp = (props) => {
     dispatch({ type: event.target.name, value: event.target.value });
   };
 
-  const handleFormSubmitted = (event) => {
-    event.preventDefault();
-    firebase
-      .doCreateUserWithEmailAndPassword(email, passwordOne)
-      .then((res) => {
-        console.log(res);
-        dispatch({ type: "email", value: "" });
-        dispatch({ type: "passwordOne", value: "" });
-        dispatch({ type: "passwordTwo", value: "" });
-        dispatch({ type: "error", value: null });
-        props.history.push("/");
-      })
-      .catch((err) => dispatch({ type: "error", value: err }));
-  };
+  const handleFormSubmitted = (event) => {};
 
   const disabled =
     passwordOne !== passwordTwo ||
