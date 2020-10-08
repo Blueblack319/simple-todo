@@ -4,9 +4,9 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../components/Button";
 
 import classes from "./Layout.module.scss";
-import Logo from "../../components/Logo";
 import SideDrawer from "../../components/SideDrawer";
 import Backdrop from "../../components/Backdrop";
+import { NavLink } from "react-router-dom";
 
 const Layout = (props) => {
   const [isSideDrawerShowed, setIsSideDrawerShowed] = useState(false);
@@ -31,7 +31,9 @@ const Layout = (props) => {
           <Button clicked={handleSideDrawerShowed}>
             <FontAwesomeIcon icon={faBars} />
           </Button>
-          <Logo />
+          <NavLink to="/" className={classes.Link}>
+            Simple Todo
+          </NavLink>
         </header>
         <div className={classes.Form}>{props.children}</div>
       </div>

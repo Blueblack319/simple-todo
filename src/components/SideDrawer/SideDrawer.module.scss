@@ -1,3 +1,5 @@
+@import "../../styles/mixin";
+
 .SideDrawer {
   z-index: 200;
   position: fixed;
@@ -10,7 +12,12 @@
   background-color: white;
   display: flex;
   flex-direction: column;
-  transform: translateX(-100vh);
+  transform: translateX(-100%);
+  transition: all 0.3s linear;
+}
+
+.Visible {
+  transform: translateX(0);
 }
 
 .Links {
@@ -19,6 +26,12 @@
   margin-top: 30px;
 }
 
-.Visible {
-  transform: translateX(0);
+.Link {
+  @include link;
+}
+
+@media screen and (min-width: 550px) {
+  .SideDrawer {
+    width: 300px;
+  }
 }

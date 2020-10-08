@@ -14,14 +14,14 @@ const SideDrawer = (props) => {
     <div className={sideDrawerClasses.join(" ")}>
       <Button clicked={props.closed}>Simple Todo</Button>
       <nav className={classes.Links}>
-        <NavLink to="/">
-          <Button clicked={props.closed}>Create</Button>
+        <NavLink to="/" onClick={props.closed} className={classes.Link}>
+          Create Todos
         </NavLink>
-        <NavLink to="/login">
-          <Button clicked={props.closed}>Login</Button>
+        <NavLink to="/login" onClick={props.closed} className={classes.Link}>
+          Login
         </NavLink>
-        <NavLink to="/">
-          <Button clicked={props.closed}>View Todos</Button>
+        <NavLink to="/view" onClick={props.closed} className={classes.Link}>
+          View Todos
         </NavLink>
       </nav>
     </div>

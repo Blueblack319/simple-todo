@@ -6,7 +6,7 @@ import Title from "../../../components/Title";
 
 import classes from "./Login.module.scss";
 
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const initialState = {
   email: "",
@@ -79,9 +79,9 @@ const Login = (props) => {
       </form>
       <p>
         Need an Account?{" "}
-        <Link to="/signup">
-          <Button>Sign up</Button>
-        </Link>
+        <NavLink to="/signup" className={classes.Link}>
+          Sign up
+        </NavLink>
       </p>
     </div>
   );
