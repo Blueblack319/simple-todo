@@ -26,16 +26,12 @@ const TodoList = (props) => {
     }
     if (current.clientHeight > 80) {
       setTodoListClasses(todoListClasses.concat(classes.HeightLimit));
-      console.log("Here");
     }
-    console.log(current.clientHeight)
   }, [setTodoListClasses, todoListClasses]);
 
   useEffect(() => {
     setHeight()
   })
-
-  console.log(todoListClasses);
 
   return (
     <div className={todoListClasses.join(" ")} ref={listRef}>

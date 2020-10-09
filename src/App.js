@@ -6,6 +6,7 @@ import Login from "./pages/Auth/Login";
 import SignUp from "./pages/Auth/SignUp";
 import CreateTodos from "./pages/CreateTodos";
 import InputTodo from "./pages/InputTodo";
+import ViewTodo from "./pages/ViewTodos"
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
           <Route path="/input-todo" component={InputTodo} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={SignUp} />
-          
+          <Route path="/view" component={ViewTodo} />
           <Redirect to="/" />
         </Switch>
       </Layout>
