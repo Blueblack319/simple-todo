@@ -15,23 +15,39 @@ const InputTodoForm = (props) => {
   const [todos, setTodos] = useState([]);
   const [index, setIndex] = useState(0);
   const [error, setError] = useState(null);
-
-  useEffect(() => {
-    setUserName(localStorage.getItem("userName"));
-    setDate(localStorage.getItem("date"));
-  }, []);
+  const [isFocused, setIsFocused] = useState(false);
 
   let todoUpdated = (event) => {
     setTodo(event.target.value);
   };
 
+  useConstructor(() => {
+    todoUpdated = todoUpdated.bind(this);
+    if(props.location.state){
+      axios({
+        method: "GET",
+        url: `/todos-list.json?orderBy="$key"&equalTo="${props.location.state.id}"`,
+      }).then((res) => res.data[props.location.state.id])
+      .then((res) => {
+        setUserName(res.userName);
+        setDate(res.date);
+        setTodos(res.todos)
+        setIndex(res.todos.length)
+      })
+      .catch(err => setError(err))
+    }else{
+      setUserName(localStorage.getItem("userName"));
+      setDate(localStorage.getItem("date"));
+    }
+  }) 
+
+  useEffect(() => {
+    console.log(isFocused)
+  }, [isFocused])
+
   const handleTodoDeleted = (index) => {
     setTodos(todos.filter((todoItem) => todoItem.index !== index));
   };
-
-  useConstructor(() => {
-    todoUpdated = todoUpdated.bind(this);
-  });
 
   const handleFormSubmitted = (event) => {
     event.preventDefault();
@@ -58,6 +74,14 @@ const InputTodoForm = (props) => {
     .catch((err) => setError(err))
   }
 
+  const handleInputFocused = () => {
+    setIsFocused(true);
+  }
+
+  const handleInputBlured = () => {
+    setIsFocused(false)
+  }
+
   return (
     <div className={classes.InputTodoForm}>
       <Title>
@@ -71,12 +95,14 @@ const InputTodoForm = (props) => {
           placeholder="Write your Todo"
           valueUpdated={todoUpdated}
           value={todo}
+          inputFocused={handleInputFocused}
+          inputBlured={handleInputBlured}
         />
         <Button>
           <span style={{ color: "#00b894" }}>✔</span>
         </Button>
       </form>
-      <TodoList todos={todos} deleted={handleTodoDeleted} />
+      <TodoList todoList={todos} deleted={handleTodoDeleted} isInputFocused={isFocused}/>
       <Button clicked={handleTodosSaved}>Save</Button>
       {error && <p>{error.message}</p>}
     </div>

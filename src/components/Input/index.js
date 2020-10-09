@@ -11,6 +11,8 @@ const Input = (props) => {
       onChange={props.valueUpdated}
       value={props.value}
       name={props.name}
+      onFocus={props.inputFocused}
+      onBlur={props.inputBlured}
     />
   );
 };

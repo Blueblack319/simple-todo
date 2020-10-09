@@ -1,40 +1,40 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {  useCallback, useEffect, useState } from "react";
 import TodoItem from "./TodoItem";
 
 import classes from "./TodoList.module.scss";
 
 const TodoList = (props) => {
   const [todoListClasses, setTodoListClasses] = useState([classes.TodoList]);
+  const {todoList, deleted, isInputFocused} = props;
 
-  const listRef = useRef(null);
+  // const listRef = useRef(null);
 
-  const todos = props.todos.map((todoItem) => {
+  const todos = todoList.map((todoItem) => {
     return (
       <TodoItem
         todo={todoItem.todo}
         key={todoItem.index}
         index={todoItem.index}
-        deleted={props.deleted}
+        deleted={deleted}
       />
     );
   });
 
   const setHeight = useCallback(() => {
-    const { current } = listRef;
-    if(todoListClasses.includes(classes.HeightLimit)){
-      return
-    }
-    if (current.clientHeight > 80) {
+    if(isInputFocused){
       setTodoListClasses(todoListClasses.concat(classes.HeightLimit));
     }
-  }, [setTodoListClasses, todoListClasses]);
+    if(todoListClasses.includes(classes.HeightLimit)){
+      setTodoListClasses(todoListClasses.filter((todoListClass) => todoListClass !== classes.HeightLimit));
+    }
+  }, [isInputFocused, todoListClasses]);
 
   useEffect(() => {
     setHeight()
-  })
+  }, [isInputFocused])
 
   return (
-    <div className={todoListClasses.join(" ")} ref={listRef}>
+    <div className={todoListClasses.join(" ")}>
       {todos}
     </div>
   );

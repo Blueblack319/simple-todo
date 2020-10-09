@@ -1,0 +1,29 @@
+.ViewTodos {
+  width: 80%;
+  margin: 20px auto;
+}
+
+// .LimitedHeight {
+//   height: 440px;
+//   overflow: auto;
+// }
+
+@media (min-width: 600px) {
+  .ViewTodos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1050px) {
+  .ViewTodos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (min-width: 1400px) {
+  .ViewTodos {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

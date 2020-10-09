@@ -11,7 +11,6 @@ const TodoItem = (props) => {
   };
 
   const handleChecked = (event) => {
-    console.log(event.target.checked);
     if (event.target.checked) {
       setTodoClass(classes.Todo);
     } else {

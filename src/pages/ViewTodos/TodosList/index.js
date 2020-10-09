@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import TodosItem from "../TodosItem"
 import axios from "../../../axios-todos"
 
-
-const TodosList = () => {
+const TodosList = (props) => {
     const [todosListState, setTodosListState] = useState([])
     useEffect(() => {
         axios({
@@ -20,11 +19,18 @@ const TodosList = () => {
             }
         })
     }, [])
+
     const todosList = todosListState.map((todosItem) => {
-        return <TodosItem userName={todosItem.userName} date={todosItem.date} count={todosItem.count} key={todosItem.id}/>
+        return <TodosItem 
+            userName={todosItem.userName}
+            date={todosItem.date} 
+            count={todosItem.count} 
+            key={todosItem.id}
+            id={todosItem.id}
+            />
     })
     return todosList
     
 }
 
-export default TodosList
+export default TodosList;
