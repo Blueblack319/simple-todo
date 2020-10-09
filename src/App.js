@@ -16,6 +16,7 @@ function App() {
           <Route path="/input-todo" component={InputTodo} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={SignUp} />
+          
           <Redirect to="/" />
         </Switch>
       </Layout>
