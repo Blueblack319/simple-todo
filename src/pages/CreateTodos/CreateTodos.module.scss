@@ -1,5 +1,7 @@
+@import "../../styles/utilities";
+
 .CreateTodosForm {
-  height: 100%;
+  @extend %form;
   text-align: center;
   display: flex;
   flex-direction: column;

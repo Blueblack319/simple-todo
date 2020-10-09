@@ -1,6 +1,7 @@
+@import "../../styles//utilities";
+
 .InputTodoForm {
-  width: 100%;
-  height: 100%;
+  @extend %form;
   text-align: center;
   display: flex;
   flex-direction: column;

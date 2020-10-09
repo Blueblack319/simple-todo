@@ -1,11 +1,9 @@
 import React from "react";
-import TodosItem from "./TodosItem";
+import TodosList from "./TodosList";
 
 const ViewTodos = () => {
     return <div>
-        <TodosItem />
-        <TodosItem />
-        <TodosItem />
+        <TodosList />
     </div>
 }
 

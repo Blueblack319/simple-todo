@@ -3,11 +3,11 @@ import Title from "../../../components/Title";
 
 import classes from "./TodosItem.module.scss"
 
-const TodosItem = () => {
+const TodosItem = (props) => {
     return <div className={classes.TodosItem}>
-        <Title>2020-10-10</Title>
-        <p>Busy</p>
-        <p>Hoon has 10 Todos</p>
+        <Title>{props.date}</Title>
+        <p>{props.count >= 5 ? <span style={{color: "#d63031"}}>Busy Day!</span> : <span style={{color: "#00b894"}}>Free Day~</span>}</p>
+        <p>{props.userName} has {props.count} Todos.</p>
     </div>
 }
 

@@ -1,4 +1,5 @@
 @import "../../styles//mixin";
+@import "../../styles//utilities";
 
 .Layout {
   width: 100%;
@@ -12,24 +13,6 @@
   }
 }
 
-.Form {
-  width: 80%;
-  height: fit-content;
-  margin: auto;
-  position: absolute;
-  bottom: 0;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
-}
-
 .Link {
   @include link;
-}
-
-@media (min-width: 600px) {
-  .Form {
-    width: 500px;
-  }
 }
