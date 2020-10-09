@@ -6,7 +6,9 @@
   align-items: center;
 }
 
-.HeightLimit {
-  height: 73px;
-  overflow: auto;
+@media (max-width: 600px) {
+  .HeightLimit {
+    height: 73px;
+    overflow: auto;
+  }
 }
