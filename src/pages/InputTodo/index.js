@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import Title from "../../components/Title";
@@ -16,6 +16,9 @@ const InputTodoForm = (props) => {
   const [index, setIndex] = useState(0);
   const [error, setError] = useState(null);
   const [isFocused, setIsFocused] = useState(false);
+  const [idToken, setIdToken] = useState("");
+  const [userId, setUserId] = useState("");
+  const { id, isEdited } = props.location.state
 
   let todoUpdated = (event) => {
     setTodo(event.target.value);
@@ -23,11 +26,11 @@ const InputTodoForm = (props) => {
 
   useConstructor(() => {
     todoUpdated = todoUpdated.bind(this);
-    if(props.location.state){
+    if(id){
       axios({
         method: "GET",
-        url: `/todos-list.json?orderBy="$key"&equalTo="${props.location.state.id}"`,
-      }).then((res) => res.data[props.location.state.id])
+        url: `/todos-list.json?orderBy="$key"&equalTo="${id}"`,
+      }).then((res) => res.data[id])
       .then((res) => {
         setUserName(res.userName);
         setDate(res.date);
@@ -39,11 +42,9 @@ const InputTodoForm = (props) => {
       setUserName(localStorage.getItem("userName"));
       setDate(localStorage.getItem("date"));
     }
+    setIdToken(localStorage.getItem("idToken"));
+    setUserId(localStorage.getItem("userId"));
   }) 
-
-  useEffect(() => {
-    console.log(isFocused)
-  }, [isFocused])
 
   const handleTodoDeleted = (index) => {
     setTodos(todos.filter((todoItem) => todoItem.index !== index));
@@ -62,16 +63,33 @@ const InputTodoForm = (props) => {
   };
 
   const handleTodosSaved = () => {
-    axios({
-      method: "POST",
-      url: "/todos-list.json",
-      data: {
-        todos,
-        date,
-        userName,
-      }
-    }).then((res) => props.history.push("/view"))
-    .catch((err) => setError(err))
+    if(isEdited){
+      axios({
+        method: "PATCH",
+        url: `/todos-list/${id}.json`,
+        data: {
+          todos,
+          date,
+          userName,
+          idToken,
+          userId
+        }
+      }).then((res) => props.history.push("/view"))
+      .catch((err) => setError(err))
+    }else{
+      axios({
+        method: "POST",
+        url: "/todos-list.json",
+        data: {
+          todos,
+          date,
+          userName,
+          idToken,
+          userId
+        }
+      }).then((res) => props.history.push("/view"))
+      .catch((err) => setError(err))
+    }
   }
 
   const handleInputFocused = () => {
@@ -103,7 +121,7 @@ const InputTodoForm = (props) => {
         </Button>
       </form>
       <TodoList todoList={todos} deleted={handleTodoDeleted} isInputFocused={isFocused}/>
-      <Button clicked={handleTodosSaved}>Save</Button>
+      <Button clicked={handleTodosSaved}>{isEdited ? "Edit" : "Save"}</Button>
       {error && <p>{error.message}</p>}
     </div>
   );

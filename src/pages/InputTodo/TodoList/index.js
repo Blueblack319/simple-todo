@@ -31,6 +31,7 @@ const TodoList = (props) => {
 
   useEffect(() => {
     setHeight()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isInputFocused])
 
   return (

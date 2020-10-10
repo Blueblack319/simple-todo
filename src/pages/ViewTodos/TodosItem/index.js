@@ -8,11 +8,11 @@ const TodosItem = (props) => {
     const {userName, date, count, id, history} = props
 
     const handleClicked = () => {
-        console.log()
         history.push({
             pathname: "/input-todo",
             state: {
-                id
+                id,
+                isEdited: true
             }
         })
     }
