@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import Title from "../../components/Title";
@@ -34,8 +34,8 @@ const InputTodoForm = (props) => {
       .then((res) => {
         setUserName(res.userName);
         setDate(res.date);
-        setTodos(res.todos)
-        setIndex(res.todos.length)
+        setTodos(res.todos ? res.todos : [])
+        setIndex(new Date())
       })
       .catch(err => setError(err))
     }else{
@@ -52,6 +52,7 @@ const InputTodoForm = (props) => {
 
   const handleFormSubmitted = (event) => {
     event.preventDefault();
+    setIndex(new Date());
     setTodos(
       todos.concat({
         todo,
@@ -59,7 +60,6 @@ const InputTodoForm = (props) => {
       })
     );
     setTodo("");
-    setIndex((prevState) => prevState + 1);
   };
 
   const handleTodosSaved = () => {
@@ -104,7 +104,7 @@ const InputTodoForm = (props) => {
     <div className={classes.InputTodoForm}>
       <Title>
         Hi, {userName}! <br />
-        You have {todos.length} Todos <br />
+        You have {todos ? todos.length : 0} Todos <br />
         in {date}.
       </Title>
       <form className={classes.InputContainer} onSubmit={handleFormSubmitted}>

@@ -24,13 +24,13 @@ const TodosList = (props) => {
                     userName: resData.data[key].userName, 
                     date: resData.data[key].date, 
                     id: key, 
-                    count: resData.data[key].todos.length
+                    count: resData.data[key].todos ? resData.data[key].todos.length : 0
                 }))
             }
         })
     }, [])
 
-    const todosList = todosListState.map((todosItem) => {
+    const todosList = todosListState ? todosListState.map((todosItem) => {
         return <TodosItem 
             userName={todosItem.userName}
             date={todosItem.date} 
@@ -38,7 +38,7 @@ const TodosList = (props) => {
             key={todosItem.id}
             id={todosItem.id}
             />
-    })
+    }) : null;
     return todosList
     
 }

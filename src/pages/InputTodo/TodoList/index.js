@@ -7,18 +7,7 @@ const TodoList = (props) => {
   const [todoListClasses, setTodoListClasses] = useState([classes.TodoList]);
   const {todoList, deleted, isInputFocused} = props;
 
-  // const listRef = useRef(null);
 
-  const todos = todoList.map((todoItem) => {
-    return (
-      <TodoItem
-        todo={todoItem.todo}
-        key={todoItem.index}
-        index={todoItem.index}
-        deleted={deleted}
-      />
-    );
-  });
 
   const setHeight = useCallback(() => {
     if(isInputFocused){
@@ -33,6 +22,17 @@ const TodoList = (props) => {
     setHeight()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isInputFocused])
+
+  const todos = todoList ? todoList.map((todoItem) => {
+    return (
+      <TodoItem
+        todo={todoItem.todo}
+        key={todoItem.index}
+        index={todoItem.index}
+        deleted={deleted}
+      />
+    );
+  }) : null;
 
   return (
     <div className={todoListClasses.join(" ")}>

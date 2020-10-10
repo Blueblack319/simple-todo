@@ -24,8 +24,8 @@ const TodoItem = (props) => {
       <div className={classes.Controls}>
         <input type="checkbox" onClick={handleChecked} />
         <Button clicked={handleClicked}>
-          {/* <span style={{ fontSize: "20px" }} role="img" aria-label="delete"> */}
-          ❌{/* </span> */}
+          <span role="img" aria-label="delete">
+          ❌</span>
         </Button>
       </div>
     </div>
