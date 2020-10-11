@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import Title from "../../components/Title";
@@ -18,14 +18,10 @@ const InputTodoForm = (props) => {
   const [isFocused, setIsFocused] = useState(false);
   const [idToken, setIdToken] = useState("");
   const [userId, setUserId] = useState("");
+  // const [isChecked, setIsChecked] = useState(false);
   const { id, isEdited } = props.location.state
 
-  let todoUpdated = (event) => {
-    setTodo(event.target.value);
-  };
-
   useConstructor(() => {
-    todoUpdated = todoUpdated.bind(this);
     if(id){
       axios({
         method: "GET",
@@ -35,7 +31,6 @@ const InputTodoForm = (props) => {
         setUserName(res.userName);
         setDate(res.date);
         setTodos(res.todos ? res.todos : [])
-        setIndex(new Date())
       })
       .catch(err => setError(err))
     }else{
@@ -45,6 +40,10 @@ const InputTodoForm = (props) => {
     setIdToken(localStorage.getItem("idToken"));
     setUserId(localStorage.getItem("userId"));
   }) 
+
+  const handleTodoUpdated = (event) => {
+    setTodo(event.target.value);
+  }
 
   const handleTodoDeleted = (index) => {
     setTodos(todos.filter((todoItem) => todoItem.index !== index));
@@ -57,6 +56,7 @@ const InputTodoForm = (props) => {
       todos.concat({
         todo,
         index,
+        isChecked: false
       })
     );
     setTodo("");
@@ -72,7 +72,7 @@ const InputTodoForm = (props) => {
           date,
           userName,
           idToken,
-          userId
+          userId,
         }
       }).then((res) => props.history.push("/view"))
       .catch((err) => setError(err))
@@ -85,7 +85,7 @@ const InputTodoForm = (props) => {
           date,
           userName,
           idToken,
-          userId
+          userId,
         }
       }).then((res) => props.history.push("/view"))
       .catch((err) => setError(err))
@@ -100,6 +100,35 @@ const InputTodoForm = (props) => {
     setIsFocused(false)
   }
 
+  // const handleTodoChecked = () => {
+  //   if(isChecked){
+  //     setIsChecked(false)
+  //   }else{
+  //     setIsChecked(true)
+  //   }
+  // }
+  // useEffect(() => {
+  //   console.log(isChecked)
+  // })
+
+  const handleTodoChecked = useCallback((isChecked, index) => {
+      setTodos((prevState) => prevState.map((todoItem) => {
+        if(todoItem.index === index){
+          todoItem.isChecked = isChecked
+        }
+        return todoItem;
+      }))
+    // todos.forEach((todoItem) => {
+    //   if(todoItem.index === index){
+    //     todoItem.isChecked = isChecked
+    //   }
+    // })
+  }, [setTodos])
+
+  useEffect(() => {
+    console.log(todos)
+  })
+
   return (
     <div className={classes.InputTodoForm}>
       <Title>
@@ -111,7 +140,7 @@ const InputTodoForm = (props) => {
         <Input
           type="text"
           placeholder="Write your Todo"
-          valueUpdated={todoUpdated}
+          valueUpdated={handleTodoUpdated}
           value={todo}
           inputFocused={handleInputFocused}
           inputBlured={handleInputBlured}
@@ -120,7 +149,12 @@ const InputTodoForm = (props) => {
           <span style={{ color: "#00b894" }}>✔</span>
         </Button>
       </form>
-      <TodoList todoList={todos} deleted={handleTodoDeleted} isInputFocused={isFocused}/>
+      <TodoList 
+        todoList={todos} 
+        deleted={handleTodoDeleted} 
+        isInputFocused={isFocused} 
+        checked={handleTodoChecked}
+      />
       <Button clicked={handleTodosSaved}>{isEdited ? "Edit" : "Save"}</Button>
       {error && <p>{error.message}</p>}
     </div>

@@ -1,28 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../../../../components/Button";
 
 import classes from "./TodoItem.module.scss";
 
 const TodoItem = (props) => {
   const [todoClass, setTodoClass] = useState(null);
+  const {todo, index, deleted, checked, isChecked} = props
 
   const handleClicked = () => {
-    props.deleted(props.index);
+    deleted(index);
   };
 
   const handleChecked = (event) => {
+    let isChecked = false;
     if (event.target.checked) {
-      setTodoClass(classes.Todo);
-    } else {
+      isChecked = true;
+    }
+    checked(isChecked, index)
+  };
+
+  useEffect(() => {
+    if(isChecked){
+      setTodoClass(classes.TodoChecked);
+    }else{
       setTodoClass(null);
     }
-  };
+  }, [setTodoClass, isChecked])
 
   return (
     <div className={classes.TodoItem}>
-      <span className={todoClass}>{props.todo}</span>
+      <span className={todoClass}>{todo}</span>
       <div className={classes.Controls}>
-        <input type="checkbox" onClick={handleChecked} />
+        <input type="checkbox" onChange={handleChecked} checked={isChecked}/>
         <Button clicked={handleClicked}>
           <span role="img" aria-label="delete">
           ❌</span>

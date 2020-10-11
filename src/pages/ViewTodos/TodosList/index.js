@@ -28,7 +28,7 @@ const TodosList = (props) => {
                 }))
             }
         })
-    }, [])
+    }, [userId])
 
     const todosList = todosListState ? todosListState.map((todosItem) => {
         return <TodosItem 

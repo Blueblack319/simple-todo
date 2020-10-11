@@ -5,9 +5,7 @@ import classes from "./TodoList.module.scss";
 
 const TodoList = (props) => {
   const [todoListClasses, setTodoListClasses] = useState([classes.TodoList]);
-  const {todoList, deleted, isInputFocused} = props;
-
-
+  const {todoList, deleted, isInputFocused, checked} = props;
 
   const setHeight = useCallback(() => {
     if(isInputFocused){
@@ -29,14 +27,16 @@ const TodoList = (props) => {
         todo={todoItem.todo}
         key={todoItem.index}
         index={todoItem.index}
+        isChecked={todoItem.isChecked}
         deleted={deleted}
+        checked={checked}
       />
     );
   }) : null;
 
   return (
     <div className={todoListClasses.join(" ")}>
-      {todos}
+      {todos.reverse()}
     </div>
   );
 };
