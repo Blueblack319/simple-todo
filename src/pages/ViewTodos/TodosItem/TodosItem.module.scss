@@ -5,6 +5,23 @@
   margin-bottom: 20px;
 }
 
+.Container {
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  margin-right: 10px;
+  &:nth-child(2) {
+    font-weight: bold;
+  }
+}
+
+.Icon {
+  color: #636e72;
+  &:hover {
+    color: #2d3436;
+  }
+}
+
 @media (min-width: 600px) {
   .TodosItem {
     width: 250px;

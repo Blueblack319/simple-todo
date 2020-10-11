@@ -6,6 +6,7 @@ import useConstructor from "../../../hooks/useConstructor"
 const TodosList = (props) => {
     const [todosListState, setTodosListState] = useState([])
     const [userId, setUserId] = useState("");
+    const [reloadedCount, setReloadedCount] = useState(0);
 
     useConstructor(() => {
         setUserId(localStorage.getItem("userId"))
@@ -18,7 +19,7 @@ const TodosList = (props) => {
         })
         // .then((res) => res.json)
         .then((resData) => {
-            console.log(resData.data)
+            setTodosListState([])
             for (let key in resData.data){
                 setTodosListState((prevState) => prevState.concat({
                     userName: resData.data[key].userName, 
@@ -28,7 +29,11 @@ const TodosList = (props) => {
                 }))
             }
         })
-    }, [userId])
+    }, [userId, reloadedCount])
+
+    const handleReloading = () => {
+        setReloadedCount((prevState) => prevState + 1)
+    }
 
     const todosList = todosListState ? todosListState.map((todosItem) => {
         return <TodosItem 
@@ -37,6 +42,7 @@ const TodosList = (props) => {
             count={todosItem.count} 
             key={todosItem.id}
             id={todosItem.id}
+            reloaded={handleReloading}
             />
     }) : null;
     return todosList
