@@ -8,21 +8,21 @@
 
 ### Building the App
 
-- [ ] Built a static version of your app first
+- [x] Built a static version of your app first
   - [x] CreateTodosForm.js
   - [x] InputTodoForm.js
-  - [ ] LogIn
-  - [ ] SignUp
-  - [ ] View
-- [ ] Implement the minimal state your app needs
+  - [x] LogIn
+  - [x] SignUp
+  - [x] View
+- [x] Implement the minimal state your app needs
   - [x] CreateTodosForm.js
   - [x] InputTodoForm.js
-  - [ ] LogIn
-  - [ ] SignUp
-  - [ ] View
-- [ ] Add functions to mutate state and thus make the UI interactive
+  - [x] LogIn
+  - [x] SignUp
+  - [x] View
+- [x] Add functions to mutate state and thus make the UI interactive
   - [x] CreateTodosForm.js
   - [x] InputTodoForm.js
-  - [ ] LogIn
-  - [ ] SignUp
-  - [ ] View
+  - [x] LogIn
+  - [x] SignUp
+  - [x] View
