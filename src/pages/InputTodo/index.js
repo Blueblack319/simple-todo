@@ -18,11 +18,10 @@ const InputTodoForm = (props) => {
   const [isFocused, setIsFocused] = useState(false);
   const [idToken, setIdToken] = useState("");
   const [userId, setUserId] = useState("");
-  // const [isChecked, setIsChecked] = useState(false);
-  const { id, isEdited } = props.location.state
 
   useConstructor(() => {
-    if(id){
+    if(props.location.state){
+      const {id} = props.location.state;
       axios({
         method: "GET",
         url: `/todos-list.json?orderBy="$key"&equalTo="${id}"`,
@@ -63,7 +62,8 @@ const InputTodoForm = (props) => {
   };
 
   const handleTodosSaved = () => {
-    if(isEdited){
+    if(props.location.state){
+      const {id} = props.location.state;
       axios({
         method: "PATCH",
         url: `/todos-list/${id}.json`,
@@ -100,17 +100,6 @@ const InputTodoForm = (props) => {
     setIsFocused(false)
   }
 
-  // const handleTodoChecked = () => {
-  //   if(isChecked){
-  //     setIsChecked(false)
-  //   }else{
-  //     setIsChecked(true)
-  //   }
-  // }
-  // useEffect(() => {
-  //   console.log(isChecked)
-  // })
-
   const handleTodoChecked = useCallback((isChecked, index) => {
       setTodos((prevState) => prevState.map((todoItem) => {
         if(todoItem.index === index){
@@ -118,16 +107,7 @@ const InputTodoForm = (props) => {
         }
         return todoItem;
       }))
-    // todos.forEach((todoItem) => {
-    //   if(todoItem.index === index){
-    //     todoItem.isChecked = isChecked
-    //   }
-    // })
   }, [setTodos])
-
-  useEffect(() => {
-    console.log(todos)
-  })
 
   return (
     <div className={classes.InputTodoForm}>
@@ -155,7 +135,7 @@ const InputTodoForm = (props) => {
         isInputFocused={isFocused} 
         checked={handleTodoChecked}
       />
-      <Button clicked={handleTodosSaved}>{isEdited ? "Edit" : "Save"}</Button>
+      <Button clicked={handleTodosSaved}>{props.location.state ? "Edit" : "Save"}</Button>
       {error && <p>{error.message}</p>}
     </div>
   );

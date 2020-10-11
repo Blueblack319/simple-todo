@@ -12,7 +12,6 @@ const TodosItem = (props) => {
             pathname: "/input-todo",
             state: {
                 id,
-                isEdited: true
             }
         })
     }
