@@ -3,9 +3,8 @@ import Button from "../../../../components/Button";
 
 import classes from "./TodoItem.module.scss";
 
-const TodoItem = (props) => {
+const TodoItem = ({todo, index, deleted, checked, isChecked}) => {
   const [todoClass, setTodoClass] = useState(null);
-  const {todo, index, deleted, checked, isChecked} = props
 
   const handleClicked = () => {
     deleted(index);

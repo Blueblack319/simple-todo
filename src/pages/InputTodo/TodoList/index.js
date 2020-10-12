@@ -3,9 +3,8 @@ import TodoItem from "./TodoItem";
 
 import classes from "./TodoList.module.scss";
 
-const TodoList = (props) => {
+const TodoList = ({todoList, deleted, isInputFocused, checked}) => {
   const [todoListClasses, setTodoListClasses] = useState([classes.TodoList]);
-  const {todoList, deleted, isInputFocused, checked} = props;
 
   const setHeight = useCallback(() => {
     if(isInputFocused){

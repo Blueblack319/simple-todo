@@ -8,9 +8,7 @@ import {faTrashAlt} from "@fortawesome/free-solid-svg-icons"
 
 
 
-const TodosItem = (props) => {
-    const {userName, date, count, id, history, reloaded} = props
-
+const TodosItem = ({userName, date, count, id, history, reloaded}) => {
     const handleClicked = () => {
         history.push({
             pathname: "/input-todo",
