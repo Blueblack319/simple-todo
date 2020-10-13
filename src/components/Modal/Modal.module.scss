@@ -1,0 +1,25 @@
+@import "../../styles/utilities";
+@import "../../styles/mixin";
+.Container {
+  @extend %form;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 10px 0;
+  width: 70%;
+  background-color: white;
+  @media (min-width: 600px) {
+    width: 400px;
+  }
+}
+
+.Title {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.Icon {
+  @include button(#ff7675, #d63031);
+}

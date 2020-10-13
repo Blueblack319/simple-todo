@@ -6,9 +6,10 @@ import classes from "./TodosItem.module.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrashAlt} from "@fortawesome/free-solid-svg-icons"
 
+import {connect} from "react-redux";
+import * as actionTypes from "../../../store/actions/actionTypes";
 
-
-const TodosItem = ({userName, date, count, id, history, reloaded}) => {
+const TodosItem = ({userName, date, count, id, history, reloaded, errorOn}) => {
     const handleClicked = () => {
         history.push({
             pathname: "/input-todo",
@@ -26,7 +27,7 @@ const TodosItem = ({userName, date, count, id, history, reloaded}) => {
         .then((res) => {
             reloaded()
         })
-        .catch((err) => console.log(err))
+        .catch((err) => errorOn(err.message))
     }
 
     return <div className={classes.TodosItem}>
@@ -36,4 +37,10 @@ const TodosItem = ({userName, date, count, id, history, reloaded}) => {
     </div>
 }
 
-export default withRouter(TodosItem);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        errorOn: (error) => dispatch({type: actionTypes.ON_ERROR, error})
+    }
+}
+
+export default withRouter(connect(null, mapDispatchToProps)(TodosItem));

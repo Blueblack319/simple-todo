@@ -6,10 +6,18 @@ import * as serviceWorker from "./serviceWorker";
 
 import { BrowserRouter as Router } from "react-router-dom";
 
+import {Provider} from "react-redux";
+import {createStore} from "redux";
+import errorSet from "./store/reducers/errorReducer"
+
+const store = createStore(errorSet)
+
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </Router>
   </React.StrictMode>,
   document.getElementById("root")

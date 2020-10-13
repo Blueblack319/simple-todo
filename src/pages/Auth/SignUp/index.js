@@ -6,11 +6,13 @@ import axios from "axios";
 
 import classes from "./SignUp.module.scss";
 
+import {connect} from "react-redux";
+import * as actionTypes from "../../../store/actions/actionTypes";
+
 const initialState = {
   email: "",
   passwordOne: "",
   passwordTwo: "",
-  error: null,
 };
 
 const reducer = (state, action) => {
@@ -21,16 +23,14 @@ const reducer = (state, action) => {
       return { ...state, passwordOne: action.value };
     case "passwordTwo":
       return { ...state, passwordTwo: action.value };
-    case "error":
-      return { ...state, error: action.value };
     default:
       return state;
   }
 };
 
-const SignUp = (props) => {
+const SignUp = ({history, errorOn}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { email, passwordOne, passwordTwo, error } = state;
+  const { email, passwordOne, passwordTwo } = state;
 
   const handleValueUpdated = (event) => {
     dispatch({ type: event.target.name, value: event.target.value });
@@ -51,8 +51,8 @@ const SignUp = (props) => {
         localStorage.setItem("idToken", res.data.idToken);
         localStorage.setItem("userId", res.data.localId);
       })
-      .then(props.history.push("/"))
-      .catch((err) => dispatch({ type: "error", value: err }));
+      .then(history.push("/"))
+      .catch((err) => errorOn(err.message));
   };
 
   const disabled =
@@ -86,9 +86,14 @@ const SignUp = (props) => {
         placeholder="Confirm Password"
       />
       <Button disabled={disabled}>Sign Up</Button>
-      {error && <p style={{ color: "#e74c3c" }}>{error.message}</p>}
     </form>
   );
 };
 
-export default SignUp;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    errorOn: (error) => dispatch({type: actionTypes.ON_ERROR, error})
+  }
+}
+
+export default connect(null, mapDispatchToProps)(SignUp);

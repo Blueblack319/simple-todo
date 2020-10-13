@@ -27,7 +27,7 @@
 }
 
 .Link {
-  @include link;
+  @include link(#74b9ff, #0984e3);
 }
 
 @media screen and (min-width: 550px) {

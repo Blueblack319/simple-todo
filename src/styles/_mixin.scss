@@ -1,13 +1,29 @@
-@mixin link {
+@mixin link($color, $hoverColor) {
   width: fit-content;
   background-color: white;
   padding: 5px;
   border-radius: 8px;
   font-size: 20px;
   font-weight: 700;
-  color: #74b9ff;
+  color: $color;
   text-decoration: none;
   &:hover {
-    color: #0984e3;
+    color: $hoverColor;
+  }
+}
+
+@mixin button($color, $hoverColor) {
+  width: fit-content;
+  font-size: 25px;
+  font-weight: 500;
+  background-color: white;
+  border: none;
+  border-radius: 10%;
+  outline: none;
+  padding: auto 0;
+  color: $color;
+  cursor: pointer;
+  &:hover {
+    color: $hoverColor;
   }
 }

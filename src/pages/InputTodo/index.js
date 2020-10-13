@@ -8,13 +8,15 @@ import axios from "../../axios-todos"
 
 import classes from "./InputTodo.module.scss";
 
+import {connect} from "react-redux";
+import * as actionTypes from "../../store/actions/actionTypes";
+
 const InputTodoForm = (props) => {
   const [userName, setUserName] = useState("");
   const [date, setDate] = useState(null);
   const [todo, setTodo] = useState("");
   const [todos, setTodos] = useState([]);
   const [index, setIndex] = useState(0);
-  const [error, setError] = useState(null);
   const [isFocused, setIsFocused] = useState(false);
   const [idToken, setIdToken] = useState("");
   const [userId, setUserId] = useState("");
@@ -31,7 +33,7 @@ const InputTodoForm = (props) => {
         setDate(res.date);
         setTodos(res.todos ? res.todos : [])
       })
-      .catch(err => setError(err))
+      .catch(err => props.errorOn(err.message))
     }else{
       setUserName(localStorage.getItem("userName"));
       setDate(localStorage.getItem("date"));
@@ -75,7 +77,7 @@ const InputTodoForm = (props) => {
           userId,
         }
       }).then((res) => props.history.push("/view"))
-      .catch((err) => setError(err))
+      .catch(err => props.errorOn(err.message))
     }else{
       axios({
         method: "POST",
@@ -88,7 +90,7 @@ const InputTodoForm = (props) => {
           userId,
         }
       }).then((res) => props.history.push("/view"))
-      .catch((err) => setError(err))
+      .catch(err => props.errorOn(err.message))
     }
   }
 
@@ -136,9 +138,14 @@ const InputTodoForm = (props) => {
         checked={handleTodoChecked}
       />
       <Button clicked={handleTodosSaved}>{props.location.state ? "Edit" : "Save"}</Button>
-      {error && <p>{error.message}</p>}
     </div>
   );
 };
 
-export default InputTodoForm;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    errorOn: (error) => dispatch({type: actionTypes.ON_ERROR, error})
+  }
+}
+
+export default connect(null, mapDispatchToProps)(InputTodoForm);

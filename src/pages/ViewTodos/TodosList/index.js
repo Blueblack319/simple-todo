@@ -3,7 +3,10 @@ import TodosItem from "../TodosItem"
 import axios from "../../../axios-todos"
 import useConstructor from "../../../hooks/useConstructor"
 
-const TodosList = (props) => {
+import {connect} from "react-redux";
+import * as actionTypes from "../../../store/actions/actionTypes";
+
+const TodosList = ({errorOn}) => {
     const [todosListState, setTodosListState] = useState([])
     const [userId, setUserId] = useState("");
     const [reloadedCount, setReloadedCount] = useState(0);
@@ -28,8 +31,8 @@ const TodosList = (props) => {
                     count: resData.data[key].todos ? resData.data[key].todos.length : 0
                 }))
             }
-        })
-    }, [userId, reloadedCount])
+        }).catch((err) => errorOn(err.message))
+    }, [userId, reloadedCount, errorOn])
 
     const handleReloading = () => {
         setReloadedCount((prevState) => prevState + 1)
@@ -49,4 +52,10 @@ const TodosList = (props) => {
     
 }
 
-export default TodosList;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        errorOn: (error) => dispatch({type: actionTypes.ON_ERROR, error})
+    }
+}
+
+export default connect(null, mapDispatchToProps)(TodosList);

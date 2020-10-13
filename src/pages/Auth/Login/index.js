@@ -8,6 +8,9 @@ import classes from "./Login.module.scss";
 
 import { NavLink } from "react-router-dom";
 
+import {connect} from "react-redux";
+import * as actionType from "../../../store/actions/actionTypes";
+
 const initialState = {
   email: "",
   password: "",
@@ -20,16 +23,14 @@ const reducer = (state, action) => {
       return { ...state, email: action.value };
     case "password":
       return { ...state, password: action.value };
-    case "error":
-      return { ...state, error: action.value };
     default:
       return state;
   }
 };
 
-const Login = (props) => {
+const Login = ({errorOn, history}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { email, password, error } = state;
+  const { email, password } = state;
 
   const handleValueUpdated = (event) => {
     dispatch({ type: event.target.name, value: event.target.value });
@@ -50,8 +51,8 @@ const Login = (props) => {
         localStorage.setItem("idToken", res.data.idToken);
         localStorage.setItem("userId", res.data.localId);
       })
-      .then(props.history.push("/"))
-      .catch((err) => dispatch({ type: "error", value: err }));
+      .then(history.push("/"))
+      .catch((err) => errorOn(err.message));
   };
 
   const disabled = password === "" || email === "";
@@ -75,7 +76,6 @@ const Login = (props) => {
           value={state.password}
         />
         <Button disabled={disabled}>Log In</Button>
-        {error && <p style={{ color: "#e74c3c" }}>{error.message}</p>}
       </form>
       <p>
         Need an Account?{" "}
@@ -87,4 +87,10 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+const mapDispatchToProps = (dispatch) => {
+  return{
+    errorOn: (error) => dispatch({type: actionType.ON_ERROR, error})
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Login);
