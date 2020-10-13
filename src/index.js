@@ -8,9 +8,9 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 import {Provider} from "react-redux";
 import {createStore} from "redux";
-import errorSet from "./store/reducers/errorReducer"
+import errorReducer from "./store/reducers/errorReducer";
 
-const store = createStore(errorSet)
+const store = createStore(errorReducer)
 
 ReactDOM.render(
   <React.StrictMode>

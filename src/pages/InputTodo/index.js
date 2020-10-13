@@ -9,7 +9,7 @@ import axios from "../../axios-todos"
 import classes from "./InputTodo.module.scss";
 
 import {connect} from "react-redux";
-import * as actionTypes from "../../store/actions/actionTypes";
+import actionTypes from "../../store/actions/actionTypes";
 
 const InputTodoForm = (props) => {
   const [userName, setUserName] = useState("");

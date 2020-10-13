@@ -4,7 +4,7 @@ import axios from "../../../axios-todos"
 import useConstructor from "../../../hooks/useConstructor"
 
 import {connect} from "react-redux";
-import * as actionTypes from "../../../store/actions/actionTypes";
+import actionTypes from "../../../store/actions/actionTypes";
 
 const TodosList = ({errorOn}) => {
     const [todosListState, setTodosListState] = useState([])

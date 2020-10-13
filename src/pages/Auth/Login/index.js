@@ -9,7 +9,7 @@ import classes from "./Login.module.scss";
 import { NavLink } from "react-router-dom";
 
 import {connect} from "react-redux";
-import * as actionType from "../../../store/actions/actionTypes";
+import actionTypes from "../../../store/actions/actionTypes";
 
 const initialState = {
   email: "",
@@ -89,7 +89,7 @@ const Login = ({errorOn, history}) => {
 
 const mapDispatchToProps = (dispatch) => {
   return{
-    errorOn: (error) => dispatch({type: actionType.ON_ERROR, error})
+    errorOn: (error) => dispatch({type: actionTypes.ON_ERROR, error}),
   }
 }
 

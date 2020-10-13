@@ -3,7 +3,7 @@ import React, {Fragment} from "react";
 import classes from "./Modal.module.scss";
 
 import {connect} from "react-redux"
-import * as actionType from "../../store/actions/actionTypes";
+import actionTypes from "../../store/actions/actionTypes";
 import Backdrop from "../Backdrop";
 
 const Modal = ({error, errorOff}) => {
@@ -22,7 +22,7 @@ const Modal = ({error, errorOff}) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        errorOff: () => dispatch({type: actionType.OFF_ERROR})
+        errorOff: () => dispatch({type: actionTypes.OFF_ERROR})
     }
 }
 

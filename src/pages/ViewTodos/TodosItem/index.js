@@ -7,7 +7,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrashAlt} from "@fortawesome/free-solid-svg-icons"
 
 import {connect} from "react-redux";
-import * as actionTypes from "../../../store/actions/actionTypes";
+import actionTypes from "../../../store/actions/actionTypes";
 
 const TodosItem = ({userName, date, count, id, history, reloaded, errorOn}) => {
     const handleClicked = () => {
