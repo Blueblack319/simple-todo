@@ -7,7 +7,7 @@ import axios from "axios";
 import classes from "./SignUp.module.scss";
 
 import {connect} from "react-redux";
-import actionTypes from "../../../store/actions/actionTypes";
+import * as actionCreators from "../../../store/actions";
 
 const initialState = {
   email: "",
@@ -92,7 +92,7 @@ const SignUp = ({history, errorOn}) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    errorOn: (error) => dispatch({type: actionTypes.ON_ERROR, error}),
+    errorOn: (error) => dispatch(actionCreators(error)),
   }
 }
 

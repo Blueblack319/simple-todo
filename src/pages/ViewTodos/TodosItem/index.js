@@ -1,15 +1,14 @@
 import React from "react";
 import { withRouter} from "react-router-dom";
-import axios from "../../../axios-todos";
 
 import classes from "./TodosItem.module.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrashAlt} from "@fortawesome/free-solid-svg-icons"
 
 import {connect} from "react-redux";
-import actionTypes from "../../../store/actions/actionTypes";
+import * as actionCreators from "../../../store/actions";
 
-const TodosItem = ({userName, date, count, id, history, reloaded, errorOn}) => {
+const TodosItem = ({userName, date, count, id, history, reloaded, deleteTodos}) => {
     const handleClicked = () => {
         history.push({
             pathname: "/input-todo",
@@ -20,14 +19,7 @@ const TodosItem = ({userName, date, count, id, history, reloaded, errorOn}) => {
     }
 
     const handleTodosRemoved = () => {
-        axios({
-            method: "DELETE",
-            url: `/todos-list/${id}.json`,
-        })
-        .then((res) => {
-            reloaded()
-        })
-        .catch((err) => errorOn(err.message))
+        deleteTodos(id, reloaded);
     }
 
     return <div className={classes.TodosItem}>
@@ -39,7 +31,7 @@ const TodosItem = ({userName, date, count, id, history, reloaded, errorOn}) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        errorOn: (error) => dispatch({type: actionTypes.ON_ERROR, error})
+        deleteTodos: (id, reloaded) => dispatch(actionCreators.deleteTodos(id, reloaded))
     }
 }
 

@@ -1,14 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import Title from "../../components/Title";
 
 import classes from "./CreateTodos.module.scss";
 
-const CreateTodosForm = (props) => {
+import {connect} from "react-redux";
+import * as actionCreators from "../../store/actions"
+import Modal from "../../components/Modal";
+import useConstructor from "../../hooks/useConstructor";
+
+const CreateTodosForm = ({checkToday, userNames, history, isAlamChecked}) => {
   const [userName, setUserName] = useState("");
   const [date, setDate] = useState("");
   // const [idToken, setIdToken] = useState(null);
+
+  useConstructor(() => {
+    if (!isAlamChecked){
+      const currentDate = new Date();
+      const formattedDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`
+      checkToday(localStorage.getItem("userId"), formattedDate)
+    }else{
+      return
+    }
+  })
+  
 
   const handleFormSubmitted = (event) => {
     event.preventDefault();
@@ -19,9 +35,9 @@ const CreateTodosForm = (props) => {
     if (storedIdToken) {
       localStorage.setItem("userName", userName);
       localStorage.setItem("date", date);
-      props.history.push("/input-todo");
+      history.push("/input-todo");
     } else {
-      props.history.push("/login");
+      history.push("/login");
     }
   };
 
@@ -34,27 +50,45 @@ const CreateTodosForm = (props) => {
     }
   };
 
+  const alam = userNames ? <Modal userNames={userNames} /> : null;
+
   return (
-    <div className={classes.CreateTodosForm}>
-      <form onSubmit={handleFormSubmitted}>
-        <Title>What's your name?</Title>
-        <Input
-          type="text"
-          valueUpdated={handleValueUpdated}
-          name="userName"
-          value={userName}
-        />
-        <Title>When do you have to do?</Title>
-        <Input
-          type="date"
-          valueUpdated={handleValueUpdated}
-          name="date"
-          value={date}
-        />
-        <Button>Go to Input Todo</Button>
-      </form>
-    </div>
+    <Fragment>
+      {alam}
+      <div className={classes.CreateTodosForm}>
+        <form onSubmit={handleFormSubmitted}>
+          <Title>What's your name?</Title>
+          <Input
+            type="text"
+            valueUpdated={handleValueUpdated}
+            name="userName"
+            value={userName}
+          />
+          <Title>When do you have to do?</Title>
+          <Input
+            type="date"
+            valueUpdated={handleValueUpdated}
+            name="date"
+            value={date}
+          />
+          <Button>Go to Input Todo</Button>
+        </form>
+      </div>
+    </Fragment>
   );
 };
 
-export default CreateTodosForm;
+const mapStateToProps = (state) => {
+  return {
+    userNames: state.todosReducer.userNames,
+    isAlamChecked: state.todosReducer.isAlamChecked
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return{
+    checkToday: (userId, date) => dispatch(actionCreators.checkToday(userId, date))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateTodosForm);

@@ -1,61 +1,44 @@
 import React, { useEffect, useState } from "react";
 import TodosItem from "../TodosItem"
-import axios from "../../../axios-todos"
-import useConstructor from "../../../hooks/useConstructor"
 
 import {connect} from "react-redux";
-import actionTypes from "../../../store/actions/actionTypes";
+import * as actionCreators from "../../../store/actions";
 
-const TodosList = ({errorOn}) => {
-    const [todosListState, setTodosListState] = useState([])
-    const [userId, setUserId] = useState("");
-    const [reloadedCount, setReloadedCount] = useState(0);
-
-    useConstructor(() => {
-        setUserId(localStorage.getItem("userId"))
-    })
+const TodosList = ({todosList, loadTodosList}) => {
+    const [reloading, setReloading] = useState(0);
 
     useEffect(() => {
-        axios({
-            method: "GET",
-            url: `/todos-list.json?orderBy="userId"&equalTo="${userId}"`
-        })
-        // .then((res) => res.json)
-        .then((resData) => {
-            setTodosListState([])
-            for (let key in resData.data){
-                setTodosListState((prevState) => prevState.concat({
-                    userName: resData.data[key].userName, 
-                    date: resData.data[key].date, 
-                    id: key, 
-                    count: resData.data[key].todos ? resData.data[key].todos.length : 0
-                }))
-            }
-        }).catch((err) => errorOn(err.message))
-    }, [userId, reloadedCount, errorOn])
+        loadTodosList(localStorage.getItem("userId"))
+    }, [reloading, loadTodosList])
 
     const handleReloading = () => {
-        setReloadedCount((prevState) => prevState + 1)
-    }
+        setReloading((prevState) => prevState + 1)
+    } 
 
-    const todosList = todosListState ? todosListState.map((todosItem) => {
+    const todos = todosList ? todosList.map((todosItem) => {
         return <TodosItem 
             userName={todosItem.userName}
             date={todosItem.date} 
             count={todosItem.count} 
             key={todosItem.id}
             id={todosItem.id}
-            reloaded={handleReloading}
+            reloaded={() => setReloading(handleReloading)}
             />
     }) : null;
-    return todosList
+    return todos
     
+}
+
+const mapStateToProps = (state) => {
+    return {
+        todosList: state.todosReducer.todosList,
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        errorOn: (error) => dispatch({type: actionTypes.ON_ERROR, error})
+        loadTodosList: (userId) => dispatch(actionCreators.loadTodosList(userId))
     }
 }
 
-export default connect(null, mapDispatchToProps)(TodosList);
+export default connect(mapStateToProps, mapDispatchToProps)(TodosList);

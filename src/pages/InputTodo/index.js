@@ -9,7 +9,7 @@ import axios from "../../axios-todos"
 import classes from "./InputTodo.module.scss";
 
 import {connect} from "react-redux";
-import actionTypes from "../../store/actions/actionTypes";
+import * as actionCreators from "../../store/actions";
 
 const InputTodoForm = (props) => {
   const [userName, setUserName] = useState("");
@@ -66,31 +66,9 @@ const InputTodoForm = (props) => {
   const handleTodosSaved = () => {
     if(props.location.state){
       const {id} = props.location.state;
-      axios({
-        method: "PATCH",
-        url: `/todos-list/${id}.json`,
-        data: {
-          todos,
-          date,
-          userName,
-          idToken,
-          userId,
-        }
-      }).then((res) => props.history.push("/view"))
-      .catch(err => props.errorOn(err.message))
+      props.editTodos(todos, date, userName, idToken, userId, id, props.history)
     }else{
-      axios({
-        method: "POST",
-        url: "/todos-list.json",
-        data: {
-          todos,
-          date,
-          userName,
-          idToken,
-          userId,
-        }
-      }).then((res) => props.history.push("/view"))
-      .catch(err => props.errorOn(err.message))
+      props.addTodos(todos, date, userName, idToken, userId, props.history)
     }
   }
 
@@ -144,7 +122,11 @@ const InputTodoForm = (props) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    errorOn: (error) => dispatch({type: actionTypes.ON_ERROR, error})
+    errorOn: (error) => dispatch(actionCreators.onError(error)),
+    addTodos: (todos, date, userName, idToken, userId, history) => 
+      dispatch(actionCreators.addTodos(todos, date, userName, idToken, userId, history)),
+    editTodos: (todos, date, userName, idToken, userId, id, history) => 
+      dispatch(actionCreators.editTodos(todos, date, userName, idToken, userId, id, history))
   }
 }
 

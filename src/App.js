@@ -10,6 +10,7 @@ import InputTodo from "./pages/InputTodo";
 import ViewTodo from "./pages/ViewTodos"
 
 import {connect} from "react-redux"
+import * as actionCreators from "./store/actions";
 
 function App({error}) {
   const errorInfo = error ? <Modal error={error} /> : null; 
@@ -30,6 +31,17 @@ function App({error}) {
   );
 }
 
-const mapStateToProps = (state) => ({error: state.error});
+const mapStateToProps = (state) => {
+  return {
+    error: state.todosReducer.error,
+    userNames: state.todosReducer.userNames
+  }
+};
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    checkToday: (userId, date) => dispatch(actionCreators.checkToday(userId, date))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

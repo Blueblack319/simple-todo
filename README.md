@@ -26,7 +26,7 @@
   - [x] LogIn
   - [x] SignUp
   - [x] View
-- [ ] Additional features
+- [x] Additional features
   - [x] Modal (show error)
-  - [ ] Alam
-  - [ ] Login timelimit
+  - [x] Redux
+  - [x] Alam 

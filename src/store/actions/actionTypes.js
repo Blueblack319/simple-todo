@@ -1,8 +1,16 @@
-export const actionTypes = {
+const actionTypes = {
     ON_ERROR: "ON_ERROR",
     OFF_ERROR: "OFF_ERROR",
+    
     LOG_OUT: "LOG_OUT",
-    LOG_IN: "LOG_IN"
+    LOG_IN: "LOG_IN",
+
+    LOAD_TODOS_SUCCEED: "LOAD_TODOS_SUCCEED",
+    TODOS_FAILED: "TODOS_FAILED",
+    LOAD_TODOS_LIST_SUCCEED: "LOAD_TODOS_LIST_SUCCEED",
+    CHECK_TODAY: "CHECK_TODAY",
+    CLOSE_ERROR: "CLOSE_ERROR",
+    CLOSE_ALAM: "CLOSE_ALAM"
 }
 
 export default actionTypes;

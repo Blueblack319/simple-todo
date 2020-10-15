@@ -9,7 +9,7 @@ import classes from "./Login.module.scss";
 import { NavLink } from "react-router-dom";
 
 import {connect} from "react-redux";
-import actionTypes from "../../../store/actions/actionTypes";
+import * as actionCreators from "../../../store/actions";
 
 const initialState = {
   email: "",
@@ -50,8 +50,8 @@ const Login = ({errorOn, history}) => {
       .then((res) => {
         localStorage.setItem("idToken", res.data.idToken);
         localStorage.setItem("userId", res.data.localId);
+        history.push("/")
       })
-      .then(history.push("/"))
       .catch((err) => errorOn(err.message));
   };
 
@@ -89,7 +89,7 @@ const Login = ({errorOn, history}) => {
 
 const mapDispatchToProps = (dispatch) => {
   return{
-    errorOn: (error) => dispatch({type: actionTypes.ON_ERROR, error}),
+    errorOn: (error) => dispatch(actionCreators.onError(error)),
   }
 }
 
